@@ -1,0 +1,15 @@
+.illustration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.illustration {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+}
+
