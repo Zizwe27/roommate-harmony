@@ -66,11 +66,18 @@ const SignUp = () => {
                 placeholder="Enter your email"
               />
               <Input
-                label="Password"
+                label="Create Password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
+              />
+              <Input
+                label="Confirm Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Confirm password"
               />
               <Button variant="secondary" onClick={handleSignUp}>Sign Up</Button>
               <p className="signup-login-text">
