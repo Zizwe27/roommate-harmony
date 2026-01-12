@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import Illustration from '../components/Illustration';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -12,6 +13,31 @@ const SignUp = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+
+  const handleSignUp = async(e) => {
+    e.preventDefault()
+
+    setErrorMessage('')
+    setSuccessMessage('')
+
+    const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+  })
+
+    if (error){
+      setErrorMessage(error.message)
+    }else{
+      setSuccessMessage("Success! Redirecting you...")
+    }
+
+    setTimeout( () => {
+      navigate('/login')
+    }, 1000)
+  }
 
   return (
     <div className="signup-page">
@@ -46,7 +72,7 @@ const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
               />
-              <Button variant="secondary" onClick={() => {}}>Sign Up</Button>
+              <Button variant="secondary" onClick={handleSignUp}>Sign Up</Button>
               <p className="signup-login-text">
                 Already have an account?{' '}
                 <TextLink to="/login">Log In</TextLink>
