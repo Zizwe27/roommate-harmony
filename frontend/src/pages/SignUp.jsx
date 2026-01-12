@@ -36,7 +36,7 @@ const SignUp = () => {
 
     setTimeout( () => {
       navigate('/login')
-    }, 1000)
+    }, 500)
   }
 
   return (
