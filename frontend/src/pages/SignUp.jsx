@@ -95,7 +95,6 @@ const SignUp = () => {
               <Input
                 label="Confirm Password"
                 type="password"
-<<<<<<< HEAD
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
