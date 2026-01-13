@@ -86,7 +86,7 @@ const SignUp = () => {
               />
               {errors.email && <p className="signup-error">{errors.email}</p>}
               <Input
-                label="Password"
+                label="Create Password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -95,6 +95,7 @@ const SignUp = () => {
               <Input
                 label="Confirm Password"
                 type="password"
+<<<<<<< HEAD
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
