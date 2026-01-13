@@ -90,3 +90,16 @@
   }
 }
 
+.login-error {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #b42318;
+}
+
+.login-success {
+  margin: 6px 0 12px;
+  font-size: 12px;
+  color: #067647;
+}
+
+
