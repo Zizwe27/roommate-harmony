@@ -10,6 +10,35 @@ import './ForgotPassword.css';
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const isValid = email.trim() !== '';
+
+  const handleReset = async () => {
+    // clear old messages
+    setSuccessMessage('');
+    setErrors({});
+
+    const newErrors = {};
+    if (!email.trim()) newErrors.email = 'Email is required';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      setSuccessMessage('Reset link sent! (placeholder)');
+    } catch (err) {
+      setErrors({ form: 'Something went wrong. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="forgot-password-page">
@@ -22,10 +51,18 @@ const ForgotPassword = () => {
         <div className="forgot-password-right">
           <Card>
             <h2 className="forgot-password-form-title">Reset Password</h2>
+            {errors.form && <p className="forgot-password-error">{errors.form}</p>}
+            {successMessage && <p className="forgot-password-success">{successMessage}</p>}
             <p className="forgot-password-description">
               Enter your email address and we'll send you a link to reset your password.
             </p>
-            <div className="forgot-password-form">
+            <form
+              className="forgot-password-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
               <Input
                 label="Email Address"
                 type="email"
@@ -33,11 +70,14 @@ const ForgotPassword = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
               />
-              <Button onClick={() => {}}>Send Reset Link</Button>
+              {errors.email && <p className="forgot-password-error">{errors.email}</p>}
+              <Button onClick={handleReset} disabled={!isValid || isSubmitting}>
+                {isSubmitting ? 'Loading…' : 'Send Reset Link'}
+              </Button>
               <div className="forgot-password-back">
                 <TextLink to="/login">Back to Log In</TextLink>
               </div>
-            </div>
+            </form>
           </Card>
         </div>
       </div>

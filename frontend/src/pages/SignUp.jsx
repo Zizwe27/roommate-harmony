@@ -12,6 +12,43 @@ const SignUp = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const isValid = fullName.trim() !== '' && email.trim() !== '' && password.trim() !== '' && confirmPassword.trim() !== '';
+
+  const handleSignUp = async () => {
+    // clear old messages
+    setSuccessMessage('');
+    setErrors({});
+
+    const newErrors = {};
+    if (!fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!email.trim()) newErrors.email = 'Email is required';
+    if (!password.trim()) newErrors.password = 'Password is required';
+    if (!confirmPassword.trim()) newErrors.confirmPassword = 'Please confirm your password';
+    if (password.trim() && confirmPassword.trim() && password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      setSuccessMessage('Account created successfully! (placeholder)');
+    } 
+    catch (err) {
+    setErrors({ form: 'Something went wrong. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="signup-page">
@@ -24,7 +61,14 @@ const SignUp = () => {
         <div className="signup-right">
           <Card>
             <h2 className="signup-form-title">Create Account</h2>
-            <div className="signup-form">
+            {errors.form && <p className="signup-error">{errors.form}</p>}
+            {successMessage && <p className="signup-success">{successMessage}</p>}
+            <form className="signup-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSignUp();
+            }}
+            >
               <Input
                 label="Full Name"
                 type="text"
@@ -32,6 +76,7 @@ const SignUp = () => {
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter your full name"
               />
+              {errors.fullName && <p className="signup-error">{errors.fullName}</p>}
               <Input
                 label="Email Address"
                 type="email"
@@ -39,6 +84,7 @@ const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
               />
+              {errors.email && <p className="signup-error">{errors.email}</p>}
               <Input
                 label="Create Password"
                 type="password"
@@ -49,16 +95,23 @@ const SignUp = () => {
               <Input
                 label="Confirm Password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Confirm password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
               />
-              <Button variant="secondary" onClick={() => {}}>Sign Up</Button>
+              {errors.password && <p className="signup-error">{errors.password}</p>}
+              <Button
+                variant="secondary"
+                onClick={handleSignUp}
+                disabled={!isValid || isSubmitting}
+              >
+                {isSubmitting ? 'Loading…' : 'Sign Up'}
+              </Button>
               <p className="signup-login-text">
                 Already have an account?{' '}
                 <TextLink to="/login">Log In</TextLink>
               </p>
-            </div>
+            </form>
           </Card>
         </div>
       </div>
