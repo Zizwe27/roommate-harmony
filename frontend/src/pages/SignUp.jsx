@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import Illustration from '../components/Illustration';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -48,6 +49,31 @@ const SignUp = () => {
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+
+  const handleSignUp = async(e) => {
+    e.preventDefault()
+
+    setErrorMessage('')
+    setSuccessMessage('')
+
+    const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+  })
+
+    if (error){
+      setErrorMessage(error.message)
+    }else{
+      setSuccessMessage("Success! Redirecting you...")
+    }
+
+    setTimeout( () => {
+      navigate('/login')
+    }, 500)
   }
 
   return (
