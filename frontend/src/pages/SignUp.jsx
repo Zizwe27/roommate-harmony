@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import Illustration from '../components/Illustration';
 import Card from '../components/Card';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Input  from '../components/Input';
+import Button  from '../components/Button';
 import TextLink from '../components/TextLink';
 import './SignUp.css';
 
@@ -40,14 +41,31 @@ const SignUp = () => {
 
     try {
       setIsSubmitting(true);
-      await new Promise((resolve) => setTimeout(resolve, 900));
-      setSuccessMessage('Account created successfully! (placeholder)');
-    } 
-    catch (err) {
+      
+      const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+      });
+
+      if (error){
+        setErrors({ form: error.message });
+        setIsSubmitting(false);
+      } else {
+
+        setSuccessMessage('Account created! Redirecting...');
+        setTimeout( () => {
+        navigate('/login')
+        }, 500);
+      }
+
+    } catch (err) {
     setErrors({ form: 'Something went wrong. Please try again.' });
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   }
 
   return (
