@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {supabase} from '../supabaseClient'
 import Illustration from '../components/Illustration';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -34,16 +35,19 @@ const Login = () => {
   
     // fake submit (Supabase will replace this later)
     try {
-      setIsSubmitting(true);
-  
-      await new Promise((resolve) => setTimeout(resolve, 900));
-  
-      setSuccessMessage('Login successful! (placeholder)');
-      // OPTIONAL: navigate somewhere later, like dashboard
-      // navigate('/dashboard');
+      const{data, error} = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+      });
+      if (error){
+        setErrors({form: error.message});
+        setIsSubmitting(false)
+      }else{
+        navigate('/dashboard');
+      }
+
     } catch (err) {
       setErrors({ form: 'Something went wrong. Please try again.' });
-    } finally {
       setIsSubmitting(false);
     }
   };
