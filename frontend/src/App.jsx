@@ -8,6 +8,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import Chores from './pages/Chores';
 import './styles/globals.css';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/chat" element={<Chat />}/>
         <Route path="/chores" element={<Chores />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
