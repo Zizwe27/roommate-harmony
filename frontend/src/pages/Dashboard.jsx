@@ -98,7 +98,7 @@ const Dashboard = () => {
           <div className="action-buttons">
             <Button variant="secondary" className="action-btn" onClick={() => navigate('/chores')}>Add Chore</Button>
             <Button variant="secondary" className="action-btn">Add Expense</Button>
-            <Button variant="secondary" className="action-btn">Send Message</Button>
+            <Button variant="secondary" className="action-btn" onClick={() => navigate('/chat')}>Send Message</Button>
           </div>
           <div className="summary-cards">
             <Card className="summary-card">
