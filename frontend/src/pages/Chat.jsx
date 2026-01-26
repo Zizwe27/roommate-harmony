@@ -55,10 +55,9 @@ export default function Chat() {
 
   function handlePickFiles(e) {
     addFiles(e.target.files);
-    // reset input so picking same file again still triggers onChange
     e.target.value = "";
   }
-
+  
   function removeAttachment(id) {
     setAttachments((prev) => {
       const found = prev.find((a) => a.id === id);
@@ -295,7 +294,10 @@ export default function Chat() {
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleSend();
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                };
               }}
             />
 
