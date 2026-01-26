@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -6,6 +7,7 @@ import harmonyImage from '../assets/harmony.png';
 import './Dashboard.css';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [pendingChores] = useState(2);
   const [overdueChores] = useState(0);
   const [pendingExpenses] = useState(1);
@@ -94,9 +96,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="action-buttons">
-            <Button variant="secondary" className="action-btn">Add Chore</Button>
+            <Button variant="secondary" className="action-btn" onClick={() => navigate('/chores')}>Add Chore</Button>
             <Button variant="secondary" className="action-btn">Add Expense</Button>
-            <Button variant="secondary" className="action-btn">Send Message</Button>
+            <Button variant="secondary" className="action-btn" onClick={() => navigate('/chat')}>Send Message</Button>
           </div>
           <div className="summary-cards">
             <Card className="summary-card">

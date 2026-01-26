@@ -1,11 +1,11 @@
 import React from 'react';
 import './Button.css';
 
-const Button = ({ children, variant = 'primary', type = 'button', onClick, ...props }) => {
+const Button = ({ children, variant = 'primary', type = 'button', onClick, className = '', ...props }) => {
   return (
     <button
       type={type}
-      className={`button button-${variant}`}
+      className={`button button-${variant} ${className}`.trim()}
       onClick={onClick}
       {...props}
     >
