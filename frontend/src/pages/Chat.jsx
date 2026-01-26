@@ -206,13 +206,6 @@ export default function Chat() {
 
       {/* MAIN */}
       <main className="chat-main">
-        {/* top right icons */}
-        <div className="chat-top-icons">
-          <button className="icon-btn" type="button" aria-label="Notifications">🔔</button>
-          <button className="icon-btn" type="button" aria-label="Settings">⚙️</button>
-          <button className="icon-btn" type="button" aria-label="Theme">☀️</button>
-        </div>
-
         {/* header */}
         <header className="chat-header">
           <h1 className="chat-title">Roommate Chat</h1>
