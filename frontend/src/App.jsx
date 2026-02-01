@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Chores from './pages/Chores';
 import './styles/globals.css';
 import Chat from './pages/Chat';
+import Events from './pages/Events';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/chat" element={<Chat />}/>
         <Route path="/chores" element={<Chores />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/events" element={<Events/>} />
       </Routes>
     </Router>
   );
