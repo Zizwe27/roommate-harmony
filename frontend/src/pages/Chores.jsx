@@ -187,82 +187,19 @@ const Chores = () => {
       </main>
 
       {isModalOpen && (
-        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>Add New Chore</h2>
-              <button className="modal-close" onClick={() => setIsModalOpen(false)}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+        <div className="modal-backdrop" role="dialog" aria-modal="true" onClick={() => setIsModalOpen(false)}>
+          <div className="modal chore-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-head">
+              <h2 className="modal-title">Add New Chore</h2>
+              <button className="modal-x" type="button" onClick={() => setIsModalOpen(false)} aria-label="Close">
+                ×
               </button>
             </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label htmlFor="chore-title">Chore Title</label>
-                <input
-                  id="chore-title"
-                  type="text"
-                  placeholder="e.g. Take out trash"
-                  value={choreTitle}
-                  onChange={(e) => setChoreTitle(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Description (optional)</label>
-                <textarea
-                  id="description"
-                  placeholder="Any additional details..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows="4"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="assign-to">Assign To</label>
-                <div className="select-wrapper">
-                  <select
-                    id="assign-to"
-                    value={assignTo}
-                    onChange={(e) => setAssignTo(e.target.value)}
-                  >
-                    <option value="">Choose roommate</option>
-                    <option value="roommate1">Roommate 1</option>
-                    <option value="roommate2">Roommate 2</option>
-                    <option value="roommate3">Roommate 3</option>
-                  </select>
-                  <span className="app-preview-tag">App Preview</span>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="due-date">Due Date</label>
-                  <input
-                    id="due-date"
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="priority">Priority</label>
-                  <select
-                    id="priority"
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                  >
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <Button variant="secondary" className="cancel-btn" onClick={() => setIsModalOpen(false)}>
-                Cancel
-              </Button>
-              <Button variant="secondary" className="create-btn" onClick={() => {
+
+            <form
+              className="modal-body"
+              onSubmit={(e) => {
+                e.preventDefault();
                 console.log({ choreTitle, description, assignTo, dueDate, priority });
                 setIsModalOpen(false);
                 setChoreTitle('');
@@ -270,13 +207,65 @@ const Chores = () => {
                 setAssignTo('');
                 setDueDate('');
                 setPriority('Medium');
-              }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z" fill="currentColor"/>
-                </svg>
-                Create
-              </Button>
-            </div>
+              }}
+            >
+              <label className="field">
+                <span>Title</span>
+                <input
+                  value={choreTitle}
+                  onChange={(e) => setChoreTitle(e.target.value)}
+                  placeholder="e.g. Take out trash"
+                />
+              </label>
+
+              <div className="two-col">
+                <label className="field">
+                  <span>Due Date</span>
+                  <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                  />
+                </label>
+                <label className="field">
+                  <span>Priority</span>
+                  <select
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                  >
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </label>
+              </div>
+
+              <label className="field">
+                <span>Assign To</span>
+                <select
+                  value={assignTo}
+                  onChange={(e) => setAssignTo(e.target.value)}
+                >
+                  <option value="">Choose roommate</option>
+                  <option value="roommate1">Roommate 1</option>
+                  <option value="roommate2">Roommate 2</option>
+                  <option value="roommate3">Roommate 3</option>
+                </select>
+              </label>
+
+              <div className="modal-actions">
+                <button type="button" className="btn-ghost" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary">
+                  Add Chore
+                </button>
+              </div>
+
+              <div className="ui-only-note">
+                UI only — chores are stored in local state (will reset on refresh).
+              </div>
+            </form>
           </div>
         </div>
       )}
