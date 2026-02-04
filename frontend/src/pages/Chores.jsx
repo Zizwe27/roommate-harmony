@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -27,7 +27,7 @@ const Chores = () => {
   const nextChore = chores.find(chore => !chore.completed);
 
   return (
-    <div className="chores-container">
+    <div className="dashboard-container">
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="logo">
@@ -38,37 +38,72 @@ const Chores = () => {
           </div>
         </div>
         <nav className="sidebar-nav">
-          <Link to="/dashboard" className="nav-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="currentColor"/>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z"
+                fill="currentColor"
+              />
             </svg>
-            <span>Home</span>
-          </Link>
-          <Link to="/generals" className="nav-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 11C17.66 11 19 9.66 19 8C19 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 11 9.66 11 8C11 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
-            </svg>
-            <span>Generals</span>
-          </Link>
-          <Link to="/expenses" className="nav-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
-            </svg>
-            <span>Expenses</span>
-          </Link>
-          <Link to="/chores" className="nav-item active">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.36 2.64C20.618 2.64 21.64 3.662 21.64 4.92V19.08C21.64 20.338 20.618 21.36 19.36 21.36H4.64C3.382 21.36 2.36 20.338 2.36 19.08V4.92C2.36 3.662 3.382 2.64 4.64 2.64H19.36ZM19.36 4H4.64C4.286 4 4 4.286 4 4.64V19.36C4 19.714 4.286 20 4.64 20H19.36C19.714 20 20 19.714 20 19.36V4.64C20 4.286 19.714 4 19.36 4ZM10 6V8H18V6H10ZM10 11V13H18V11H10ZM10 16V18H15V16H10Z" fill="currentColor"/>
+            <span>Dashboard</span>
+          </NavLink>
+
+          <NavLink
+            to="/chores"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M19.36 2.64C20.618 2.64 21.64 3.662 21.64 4.92V19.08C21.64 20.338 20.618 21.36 19.36 21.36H4.64C3.382 21.36 2.36 20.338 2.36 19.08V4.92C2.36 3.662 3.382 2.64 4.64 2.64H19.36ZM19.36 4H4.64C4.286 4 4 4.286 4 4.64V19.36C4 19.714 4.286 20 4.64 20H19.36C19.714 20 20 19.714 20 19.36V4.64C20 4.286 19.714 4 19.36 4ZM10 6V8H18V6H10ZM10 11V13H18V11H10ZM10 16V18H15V16H10Z"
+                fill="currentColor"
+              />
             </svg>
             <span>Chores</span>
-          </Link>
-          <Link to="/settings" className="nav-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.14 12.94C19.18 12.64 19.2 12.33 19.2 12C19.2 11.67 19.18 11.36 19.14 11.06L21.16 9.48C21.34 9.33 21.38 9.07 21.25 8.87L19.33 5.97C19.2 5.77 18.95 5.7 18.75 5.8L16.42 6.88C16.01 6.6 15.56 6.37 15.08 6.2L14.78 3.68C14.73 3.45 14.54 3.28 14.31 3.28H9.69C9.46 3.28 9.27 3.45 9.22 3.68L8.92 6.2C8.44 6.37 7.99 6.6 7.58 6.88L5.25 5.8C5.05 5.7 4.8 5.77 4.67 5.97L2.75 8.87C2.62 9.07 2.66 9.33 2.84 9.48L4.86 11.06C4.82 11.36 4.8 11.67 4.8 12C4.8 12.33 4.82 12.64 4.86 12.94L2.84 14.52C2.66 14.67 2.62 14.93 2.75 15.13L4.67 18.03C4.8 18.23 5.05 18.3 5.25 18.2L7.58 17.12C7.99 17.4 8.44 17.63 8.92 17.8L9.22 20.32C9.27 20.55 9.46 20.72 9.69 20.72H14.31C14.54 20.72 14.73 20.55 14.78 20.32L15.08 17.8C15.56 17.63 16.01 17.4 16.42 17.12L18.75 18.2C18.95 18.3 19.2 18.23 19.33 18.03L21.25 15.13C21.38 14.93 21.34 14.67 21.16 14.52L19.14 12.94ZM12 15.6C10.02 15.6 8.4 13.98 8.4 12C8.4 10.02 10.02 8.4 12 8.4C13.98 8.4 15.6 10.02 15.6 12C15.6 13.98 13.98 15.6 12 15.6Z" fill="currentColor"/>
+          </NavLink>
+
+          <NavLink
+            to="/expenses"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C13.28 6.9 13.94 7.75 14 9H16.21C16.14 7.28 15.09 5.7 13 5.19V3H10V5.16C8.06 5.58 6.5 6.84 6.5 8.77C6.5 10.65 8 11.68 10.5 12.34C12.8 12.93 13.5 13.54 13.5 14.5C13.5 15.5 12.5 16.35 10.5 16.35C8.64 16.35 7.86 15.54 7.76 14.25H5.5C5.59 16.4 7.18 17.89 10 18.31V21H13V18.84C14.95 18.5 16.5 17.35 16.5 15.5C16.5 13.28 14.69 12.15 11.8 11.5V10.9Z"
+                fill="currentColor"
+              />
             </svg>
-            <span>Settings</span>
-          </Link>
+            <span>Expenses</span>
+          </NavLink>
+
+          <NavLink
+            to="/chat"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span>Chat</span>
+          </NavLink>
+
+          <NavLink
+            to="/events"
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M19 4H5C3.89 4 3 4.9 3 6V20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V9H19V20ZM19 7H5V6H19V7ZM17 12H12V17H17V12Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span>Events</span>
+          </NavLink>
         </nav>
+
         <div className="sidebar-footer">
           <div className="user-profile">
             <div className="profile-avatar">
